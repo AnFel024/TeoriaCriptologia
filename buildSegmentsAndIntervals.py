@@ -1,8 +1,15 @@
 import math
+from random import random
 
 castRule = lambda x : x.replace(' ','').replace('(','').replace(')','').replace('X','')
+formula = "5v=8(X/2)+4(1X)+2(2X)+2(4X)"
+#formula = "1v=16(1X)"
 
-def obtainForm(formula, tamIntervalo):
+bitsDeIntervalo = 3
+tamIntervalo = 2 ** bitsDeIntervalo
+
+
+def obtainForm():
     maximaExcursion = int(formula[:formula.index('=')].replace('v',''))
     arraySegmentRules = formula[formula.index('=') + 1:].split('+')
     arrayPrefixRules = []
@@ -19,20 +26,22 @@ def obtainForm(formula, tamIntervalo):
         else:
             prefixSegment = str(rule[:rule.index('(')])
             segmentRegrex.append(int(prefixSegment))
-            rule = rule.replace(str(prefixSegment),'')
+            rule = rule[len(prefixSegment):]
+            
             if '/' in rule:
                 tempRule = castRule(rule)
                 tempRule = eval('1' + tempRule)
 
             else:
                 tempRule = castRule(rule)
-            
+
             segmentIteration += eval(str(prefixSegment + '*' + str(tempRule)))
         
         arrayPrefixRules.append(tempRule) # Recordar las reglas de insercion TAL CUAL.
 
-    valorDeAcopio = maximaExcursion / segmentIteration
+    valorDeAcopio = maximaExcursion / segmentIteration # Valor que se genera de despejar la X de la formula
     
+    #Funcion que toma las reglas de los segmentos que acompañan la X genera los valores limite para los segmentos no uniformes
     tempRegrex = 0
     flag = 0
     for rule in arrayPrefixRules:
@@ -40,15 +49,13 @@ def obtainForm(formula, tamIntervalo):
         dictTamSegmento[str(tempRegrex)] = valorDeAcopio * float(rule)
         flag+= 1
 
+    #Funcion que genera los valores de los intervalos
     for key, value in dictTamSegmento.items():
         dictTamIntervalo[key] = value / tamIntervalo
     
     bitsDeSegmento = int(math.log2(sum(segmentRegrex)))
 
-    print(bitsDeSegmento)
-
     return maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopio
-
 
 # Funcion que crea segmentos e intervalos
 def generateSegmentsAndIntervals(firstPosition, actualExcursion, tamArray, temporaryExcusrion):
@@ -57,11 +64,10 @@ def generateSegmentsAndIntervals(firstPosition, actualExcursion, tamArray, tempo
     for _ in range(0, tamArray):
         actualExcursion += temporaryExcusrion
         array.append(actualExcursion)
-        # Buscar lib para crear excel
 
     return array
 
-def recursiveFun(dictTamSegmento, tamIntervalo):
+def recursiveFun(dictTamSegmento):
     arraySegmento = []
     dictIntervalo = {}
     firstPosition = True
@@ -75,4 +81,9 @@ def recursiveFun(dictTamSegmento, tamIntervalo):
         actualExcursion = tempArraySegmentos[-1]
         lastKey = int(key)
 
+    import pandas as pd
+
+    df = pd.DataFrame(arraySegmento).T
+    df.to_excel(excel_writer = "./test " + str(random()) + ".xlsx")
+    
     return arraySegmento, dictIntervalo

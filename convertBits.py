@@ -1,7 +1,5 @@
 import buildSegmentsAndIntervals as bsi
 
-maximaExcursion = 0
-
 bitDeSigno = 1
 bitsDeSegmento = 1
 bitsDeIntervalo = 3
@@ -9,16 +7,11 @@ valorDeAcopio = 0.0
 dictTamSegmento = {}
 dictTamIntervalo = {}
 
-formula = "5v=4(X/2)+4(1X)+4(2X)+4(3X)"
-#formula = "1v=16(1X)"
-
-tamIntervalo = 2 ** bitsDeIntervalo
-maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopio = bsi.obtainForm(formula, tamIntervalo)
-tamSegmento = 2 ** bitsDeSegmento
+maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopio = bsi.obtainForm()
 bitsCodificacion = bitDeSigno + bitsDeIntervalo + bitsDeSegmento
-arraySegmento, dictIntervalo  = bsi.recursiveFun(dictTamSegmento, tamIntervalo)
+arraySegmento, dictIntervalo  = bsi.recursiveFun(dictTamSegmento)
 
-chain = "00010100"
+chain = "01001000 01101111 01101100 01100001 00100000 01100001 00100000 01110100 01101111 01100100 01101111 01110011 00101100 00100000 01100101 01110011 01110100 01101111 00100000 01100101 01110011 00100000 01110101 01101110 01100001 00100000 01110000 01110010 01110101 01100101 01100010 01101001 01101110 01101000 11100001 00100000 01110011 01101111 01100010 01110010 01100101 00100000 01101000 01100101 01110010 01110010 01101111 01110010 01100101 01110011 00100000 01100100 01100101 00100000 01101111 01110100 01110010 01101111 10110100 01100111 01110010 11100001 01100110 01101001 01100001 00100000 01110001 01101111 01100100 01101001 01100110 01101001 01101011 01100001 01100100 01101111 01111010 00101110 "
 
 arrayOrder = ["Signo", "Segmento", "Intervalo"]
 
