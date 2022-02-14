@@ -1,3 +1,4 @@
+import pandas as pd
 import buildSegmentsAndIntervals as bsi
 
 maximaExcursion = 0
@@ -13,7 +14,13 @@ maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopi
 bitsCodificacion = bitDeSigno + bitsDeIntervalo + bitsDeSegmento
 arraySegmento, dictIntervalo  = bsi.recursiveFun(dictTamSegmento)
 
-print(dictTamIntervalo)
+df_segmentos = pd.DataFrame(arraySegmento).T
+df_blanco = pd.DataFrame([" "]).T
+df_intervalos = pd.DataFrame(dictIntervalo).T
+df_info = pd.DataFrame(["valorDeAcopio", valorDeAcopio, "Max Excursion", maximaExcursion]).T
+
+df = pd.concat([df_segmentos, df_blanco, df_intervalos, df_blanco, df_info], sort= False)
+df.to_excel(excel_writer = "./codificador_prueba.xlsx")
 
 chain = "-1.25,-2.9375,-2.75,-2.0625,-0.5,-2.0625,-0.5,-3.5,-2.9375,-2.25,-2.9375,-3.375,-0.6875,-0.5,-2.3125,-3.375,-3.5,-2.9375,-0.5,-2.3125,-3.375,-0.5,-3.625,-2.875,-2.0625,-0.5,-3.0,-3.25,-3.625,-2.3125,-2.125,-2.5625,-2.875,-2.5,2.0625,-0.5,-3.375,-2.9375,-2.125,-3.25,-2.3125,-0.5,-2.5,-2.3125,-3.25,-3.25,-2.9375,-3.25,-2.3125,-3.375,-0.5,-2.25,-2.3125,-0.5,-2.9375,-3.5,-3.25,-2.9375,0.8125,-2.4375,-3.25,2.0625,-2.375,-2.5625,-2.0625,-0.5,-3.125,-2.9375,-2.25,-2.5625,-2.375,-2.5625,-2.6875,-2.0625,-2.25,-2.9375,-4.25,-0.71875"
 
@@ -104,4 +111,3 @@ def good_bye_world():
     #return response + " | " + responseAS + " | " + responseAI
 
     return response
-    

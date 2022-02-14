@@ -1,3 +1,4 @@
+import pandas as pd
 import buildSegmentsAndIntervals as bsi
 
 bitDeSigno = 1
@@ -10,6 +11,14 @@ dictTamIntervalo = {}
 maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopio = bsi.obtainForm()
 bitsCodificacion = bitDeSigno + bitsDeIntervalo + bitsDeSegmento
 arraySegmento, dictIntervalo  = bsi.recursiveFun(dictTamSegmento)
+
+df_segmentos = pd.DataFrame(arraySegmento).T
+df_blanco = pd.DataFrame([" "]).T
+df_intervalos = pd.DataFrame(dictIntervalo).T
+df_info = pd.DataFrame(["valorDeAcopio", valorDeAcopio, "Max Excursion", maximaExcursion]).T
+
+df = pd.concat([df_segmentos, df_blanco, df_intervalos, df_blanco, df_info], sort= False)
+df.to_excel(excel_writer = "./codificador_prueba.xlsx")
 
 chain = "01001000 01101111 01101100 01100001 00100000 01100001 00100000 01110100 01101111 01100100 01101111 01110011 00101100 00100000 01100101 01110011 01110100 01101111 00100000 01100101 01110011 00100000 01110101 01101110 01100001 00100000 01110000 01110010 01110101 01100101 01100010 01101001 01101110 01101000 11100001 00100000 01110011 01101111 01100010 01110010 01100101 00100000 01101000 01100101 01110010 01110010 01101111 01110010 01100101 01110011 00100000 01100100 01100101 00100000 01101111 01110100 01110010 01101111 10110100 01100111 01110010 11100001 01100110 01101001 01100001 00100000 01110001 01101111 01100100 01101001 01100110 01101001 01101011 01100001 01100100 01101111 01111010 00101110 "
 

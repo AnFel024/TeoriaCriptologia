@@ -80,10 +80,5 @@ def recursiveFun(dictTamSegmento):
         firstPosition = False
         actualExcursion = tempArraySegmentos[-1]
         lastKey = int(key)
-
-    import pandas as pd
-
-    df = pd.DataFrame(arraySegmento).T
-    df.to_excel(excel_writer = "./test " + str(random()) + ".xlsx")
     
     return arraySegmento, dictIntervalo
