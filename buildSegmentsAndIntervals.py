@@ -1,11 +1,12 @@
 import math
 from random import random
+import numpy as np
 
 castRule = lambda x : x.replace(' ','').replace('(','').replace(')','').replace('X','')
-formula = "5v=8(X/2)+4(1X)+2(2X)+2(4X)"
+formula = "5v=4(X/2)+4(1X)+4(2X)+4(3X)"
 #formula = "1v=16(1X)"
 
-bitsDeIntervalo = 3
+bitsDeIntervalo = 4
 tamIntervalo = 2 ** bitsDeIntervalo
 
 
@@ -39,23 +40,24 @@ def obtainForm():
         
         arrayPrefixRules.append(tempRule) # Recordar las reglas de insercion TAL CUAL.
 
-    valorDeAcopio = maximaExcursion / segmentIteration # Valor que se genera de despejar la X de la formula
-    
+    valorDeAcopio = np.round(maximaExcursion / segmentIteration, 10) # Valor que se genera de despejar la X de la formula    
+
     #Funcion que toma las reglas de los segmentos que acompañan la X genera los valores limite para los segmentos no uniformes
     tempRegrex = 0
     flag = 0
     for rule in arrayPrefixRules:
         tempRegrex += int(segmentRegrex[flag])
-        dictTamSegmento[str(tempRegrex)] = valorDeAcopio * float(rule)
+        dictTamSegmento[str(tempRegrex)] = round(valorDeAcopio * float(rule), 10)
         flag+= 1
 
     #Funcion que genera los valores de los intervalos
     for key, value in dictTamSegmento.items():
-        dictTamIntervalo[key] = value / tamIntervalo
+        dictTamIntervalo[key] = round((value / tamIntervalo), 10)
     
+    print(f"------------------------------> {sum(segmentRegrex)}")
     bitsDeSegmento = int(math.log2(sum(segmentRegrex)))
 
-    return maximaExcursion, bitsDeSegmento, dictTamSegmento, dictTamIntervalo, valorDeAcopio
+    return maximaExcursion, bitsDeSegmento, dictTamSegmento, bitsDeIntervalo, dictTamIntervalo, valorDeAcopio
 
 # Funcion que crea segmentos e intervalos
 def generateSegmentsAndIntervals(firstPosition, actualExcursion, tamArray, temporaryExcusrion):
@@ -63,7 +65,7 @@ def generateSegmentsAndIntervals(firstPosition, actualExcursion, tamArray, tempo
 
     for _ in range(0, tamArray):
         actualExcursion += temporaryExcusrion
-        array.append(actualExcursion)
+        array.append(np.round(actualExcursion ,10))
 
     return array
 
