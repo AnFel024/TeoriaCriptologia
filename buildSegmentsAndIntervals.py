@@ -3,10 +3,10 @@ from random import random
 import numpy as np
 
 castRule = lambda x : x.replace(' ','').replace('(','').replace(')','').replace('X','')
-formula = "5v=4(X/2)+4(1X)+4(2X)+4(3X)"
+formula = "47v=14(X/2)+24(1X)+34(2X)+4(3X)+6(5X)"
 #formula = "1v=16(1X)"
 
-bitsDeIntervalo = 4
+bitsDeIntervalo = 8
 tamIntervalo = 2 ** bitsDeIntervalo
 
 
