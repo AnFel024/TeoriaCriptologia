@@ -1,12 +1,16 @@
+import ast
 import math
 from random import random
 import numpy as np
+from flask import request
 
 castRule = lambda x : x.replace(' ','').replace('(','').replace(')','').replace('X','')
-formula = "47v=14(X/2)+24(1X)+34(2X)+4(3X)+6(5X)"
-#formula = "1v=16(1X)"
+#formula = "47v=14(X/2)+24(1X)+34(2X)+4(3X)+6(5X)"
+#formula = "5v=16(1X)"
+formula = ast.literal_eval(request.get_data().decode())["formula"]
+print(request.get_data().decode())
 
-bitsDeIntervalo = 8
+bitsDeIntervalo = 3
 tamIntervalo = 2 ** bitsDeIntervalo
 
 
@@ -24,6 +28,8 @@ def obtainForm():
             prefixSegment = '1'
             segmentRegrex.append(int(prefixSegment))
             tempRule = '1'
+            #segmentIteration += eval(str(prefixSegment + '*' + str(tempRule)))
+
         else:
             prefixSegment = str(rule[:rule.index('(')])
             segmentRegrex.append(int(prefixSegment))

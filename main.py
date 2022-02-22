@@ -4,11 +4,12 @@ from flask import request
 import ast
 
 app = Flask(__name__)
+global formula
 
 @app.route('/hello_world', methods=['GET'])
 def call_func():
     import convertBits
-    return convertBits.hello_world()
+    return convertBits.hello_world("")
 
 @app.route('/codificar', methods=['POST'])
 def code_func():
@@ -26,7 +27,7 @@ def code_func():
 @app.route('/good_bye_world', methods=['GET'])
 def call_func_2():
     import voltsToBin
-    return voltsToBin.good_bye_world()
+    return voltsToBin.good_bye_world("")
 
 @app.route('/decodificar', methods=['POST'])
 def call_decodificar():
