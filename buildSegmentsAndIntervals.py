@@ -5,12 +5,12 @@ import numpy as np
 from flask import request
 
 castRule = lambda x : x.replace(' ','').replace('(','').replace(')','').replace('X','')
-#formula = "47v=14(X/2)+24(1X)+34(2X)+4(3X)+6(5X)"
+#formula = "15v=14(X/2)+14(1X)+14(2X)+14(3X)"
 #formula = "5v=16(1X)"
 formula = ast.literal_eval(request.get_data().decode())["formula"]
-print(request.get_data().decode())
+print(formula)
 
-bitsDeIntervalo = 3
+bitsDeIntervalo = 4
 tamIntervalo = 2 ** bitsDeIntervalo
 
 

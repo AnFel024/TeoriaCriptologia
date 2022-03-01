@@ -100,5 +100,9 @@ def hello_world(chain):
     #print(bitsCodificacion)
     arrayBits = makeArray(chain.replace(" ", ""), bitsCodificacion)
     arrayResponse = [str(a) for a in castBitIntoArrayPosition(arrayBits)]
-    
+    print(f"El tamnaño es -> {len(arrayResponse)}")
+    f= open("response.txt","w+")
+    f.write(str(arrayResponse))
+    f.close()
+
     return str.join(",", arrayResponse)

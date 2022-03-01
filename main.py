@@ -17,7 +17,6 @@ def code_func():
     if request.method == 'POST':
         language = request.get_data().decode()
         chain = ast.literal_eval(language)
-        print(chain)
 
     response = jsonify({'volts': convertBits.hello_world(chain["binary_chain"])})
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -34,11 +33,10 @@ def call_decodificar():
     import voltsToBin
     language = request.get_data().decode()
     volts = ast.literal_eval(language)
-    print(volts)
     response = jsonify({'bin_chain': voltsToBin.good_bye_world(volts["volts_chain"])})
     response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
 
 
-app.run(host="0.0.0.0")
+app.run(host="127.0.0.1")

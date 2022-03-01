@@ -108,7 +108,6 @@ def good_bye_world(chain):
     arrayChain = [float(value) for value in arrayVolts]
 
     response = str.join("", makeChain(arrayChain))
-    print(bitsDeSegmento)
     #return response + " | " + responseAS + " | " + responseAI
 
     return response
